@@ -1,3 +1,5 @@
 flask
 mymongo
 flask_cors
+razorpay
+gunicorn

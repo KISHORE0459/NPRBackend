@@ -30,8 +30,8 @@ def get_users_by_name(user_name):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route("api/users/np/<np>", methods=["GET"])
-def get_users_by_name(np):
+@app.route("/api/users/np/<np>", methods=["GET"])
+def get_users_by_np(np):
     try:
         userdata = list(users.find({'number_plate': np}, {"_id":0}))
         if(userdata):

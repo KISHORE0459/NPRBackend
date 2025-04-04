@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from pymongo import MongoClient
 from flask_cors import CORS
+from pymongo import DESCENDING 
 
 app = Flask(__name__)
 CORS(app)  
@@ -44,7 +45,7 @@ def get_users_by_np(np):
 @app.route('/api/entries' , methods =["GET"])
 def get_entries():
     try:
-        entrydata = list(entries.find({} , {"_id" : 0}))
+        entrydata = list(entries.find({} , {"_id" : 0}).sort("EnterTime",DESCENDING))
         return jsonify(entrydata);
     except Exception as e:
         return jsonify({"error" : str(e)}), 500
@@ -53,7 +54,7 @@ def get_entries():
 @app.route('/api/exits' , methods =["GET"])
 def get_exits():
     try:
-        exitdata = list(exit.find({} , {"_id" : 0}))
+        exitdata = list(exit.find({} , {"_id" : 0}).sort("ExitTime", DESCENDING))
         return jsonify(exitdata)
     except Exception as e:
         return jsonify({"error" : str(e)}), 500

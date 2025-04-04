@@ -29,7 +29,16 @@ def get_users_by_name(user_name):
             return jsonify(userdata)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
+
+@app.route("api/users/np/<np>", methods=["GET"])
+def get_users_by_name(np):
+    try:
+        userdata = list(users.find({'number_plate': np}, {"_id":0}))
+        if(userdata):
+            return jsonify(userdata)
+    except Exception as e:
+        return jsonify({"Error" , str(e)}) , 500
+
 
     
 @app.route('/api/entries' , methods =["GET"])
